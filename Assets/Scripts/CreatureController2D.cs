@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class CreatureController2D : MonoBehaviour
 {
     public LayerMask groundedLayerMask;
-    public Transform groundedTransform;
-    public float groundedWidth = 1f;
-    public float groundedHeight = 1f;
+    public BoxCollider2D groundedCollider;
+    public BoxCollider2D leftWallCollider;
+    public BoxCollider2D rightWallCollider;
+    public BoxCollider2D leftEndOfGroundCollider;
+    public BoxCollider2D rightEndOfGroundCollider;
 
     [SingleLayer]
     public int platformLabel;
@@ -19,10 +20,6 @@ public class CreatureController2D : MonoBehaviour
     public float airControlSmoothTime = 0.5f;
 
     public bool isFlying = false;
-
-    public UnityEvent<Collision2D> onCollisionEnter2DEvent;
-    public UnityEvent<Collision2D> onCollisionStay2DEvent;
-    public UnityEvent<Collision2D> onCollisionExit2DEvent;
 
     public bool isDrawGizgos = true;
 
@@ -58,14 +55,47 @@ public class CreatureController2D : MonoBehaviour
 
     public bool IsGrounded()
     {
-        if (groundedTransform)
+        if (groundedCollider)
         {
-            Vector2 offsetToCorner = new(groundedWidth / 2f, groundedHeight / 2f);
-            Vector2 position = new(groundedTransform.position.x, groundedTransform.position.y);
-
-            return Physics2D.OverlapArea(position - offsetToCorner, position + offsetToCorner, groundedLayerMask);
+            return groundedCollider.IsTouchingLayers(groundedLayerMask);
         }
         return false;
+    }
+
+    public bool IsLeftWall()
+    {
+        if (leftWallCollider)
+        {
+            return leftWallCollider.IsTouchingLayers(groundedLayerMask);
+        }
+        return false;
+    }
+
+    public bool IsRightWall()
+    {
+        if (rightWallCollider)
+        {
+            return rightWallCollider.IsTouchingLayers(groundedLayerMask);
+        }
+        return false;
+    }
+
+    public bool IsLeftEndOfGround()
+    {
+        if (leftEndOfGroundCollider)
+        {
+            return !leftEndOfGroundCollider.IsTouchingLayers(groundedLayerMask);
+        }
+        return true;
+    }
+
+    public bool IsRightEndOfGround()
+    {
+        if (rightEndOfGroundCollider)
+        {
+            return !rightEndOfGroundCollider.IsTouchingLayers(groundedLayerMask);
+        }
+        return true;
     }
 
     public bool IsCollidingWithPlatform()
@@ -150,42 +180,11 @@ public class CreatureController2D : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        onCollisionEnter2DEvent.Invoke(collision);
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        onCollisionStay2DEvent.Invoke(collision);
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        onCollisionExit2DEvent.Invoke(collision);
-    }
-
     private void OnDrawGizmos()
     {
         if (!isDrawGizgos)
         {
             return;
-        }
-
-        if (groundedTransform)
-        {
-            Vector3 topLeftCorner = groundedTransform.position +
-                Vector3.left * groundedWidth / 2f +
-                Vector3.up * groundedHeight / 2f;
-            Vector3 topRightCorner = topLeftCorner + Vector3.right * groundedWidth;
-            Vector3 bottomRightCorner = topRightCorner + Vector3.down * groundedHeight;
-            Vector3 bottomLeftCorner = bottomRightCorner + Vector3.left * groundedWidth;
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(topLeftCorner, topRightCorner);
-            Gizmos.DrawLine(topRightCorner, bottomRightCorner);
-            Gizmos.DrawLine(bottomRightCorner, bottomLeftCorner);
-            Gizmos.DrawLine(bottomLeftCorner, topLeftCorner);
         }
     }
 }
