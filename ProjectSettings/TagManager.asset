@@ -13,6 +13,8 @@ TagManager:
   - UI
   - 
   - 
+  - Player
+  - IgnoringPlatformPlayer
   - 
   - 
   - 
@@ -23,10 +25,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Platform
+  - Ground
   - 
   - 
   - 
@@ -38,6 +38,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2234905731
+    locked: 0
+  - name: Creatures
+    uniqueID: 1941531099
+    locked: 0
+  - name: Walls
+    uniqueID: 3028344685
+    locked: 0
+  - name: Platforms
+    uniqueID: 1020344189
+    locked: 0
+  - name: Player
+    uniqueID: 847408067
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
