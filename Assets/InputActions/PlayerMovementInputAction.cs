@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/InputActions/PlayerInputAction.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/InputActions/PlayerMovementInputAction.inputactions'
 
 using System;
 using System.Collections;
@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public class @PlayerInputAction : IInputActionCollection, IDisposable
+public class @PlayerMovementInputAction : IInputActionCollection, IDisposable
 {
     public InputActionAsset asset { get; }
-    public @PlayerInputAction()
+    public @PlayerMovementInputAction()
     {
         asset = InputActionAsset.FromJson(@"{
-    ""name"": ""PlayerInputAction"",
+    ""name"": ""PlayerMovementInputAction"",
     ""maps"": [
         {
             ""name"": ""Player"",
@@ -31,14 +31,6 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""dbb8253a-7901-405d-bb7e-8ffd92321864"",
                     ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Fire"",
-                    ""type"": ""Button"",
-                    ""id"": ""33603bce-55ac-412f-9f59-ea8aeb2a26fd"",
-                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -166,28 +158,6 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
                     ""action"": ""Move2D"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""05f6913d-c316-48b2-a6bb-e225f14c7960"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""886e731e-7071-4ae4-95c0-e61739dad6fd"",
-                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Touch"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -864,7 +834,6 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move2D = m_Player.FindAction("Move2D", throwIfNotFound: true);
         m_Player_Move1D = m_Player.FindAction("Move1D", throwIfNotFound: true);
-        m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_JumpDown = m_Player.FindAction("JumpDown", throwIfNotFound: true);
         m_Player_FlySwitcher = m_Player.FindAction("FlySwitcher", throwIfNotFound: true);
@@ -931,17 +900,15 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Move2D;
     private readonly InputAction m_Player_Move1D;
-    private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_JumpDown;
     private readonly InputAction m_Player_FlySwitcher;
     public struct PlayerActions
     {
-        private @PlayerInputAction m_Wrapper;
-        public PlayerActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
+        private @PlayerMovementInputAction m_Wrapper;
+        public PlayerActions(@PlayerMovementInputAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move2D => m_Wrapper.m_Player_Move2D;
         public InputAction @Move1D => m_Wrapper.m_Player_Move1D;
-        public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @JumpDown => m_Wrapper.m_Player_JumpDown;
         public InputAction @FlySwitcher => m_Wrapper.m_Player_FlySwitcher;
@@ -960,9 +927,6 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
                 @Move1D.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove1D;
                 @Move1D.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove1D;
                 @Move1D.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove1D;
-                @Fire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
-                @Fire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
-                @Fire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
@@ -982,9 +946,6 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
                 @Move1D.started += instance.OnMove1D;
                 @Move1D.performed += instance.OnMove1D;
                 @Move1D.canceled += instance.OnMove1D;
-                @Fire.started += instance.OnFire;
-                @Fire.performed += instance.OnFire;
-                @Fire.canceled += instance.OnFire;
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
@@ -1014,8 +975,8 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
     private readonly InputAction m_UI_TrackedDeviceOrientation;
     public struct UIActions
     {
-        private @PlayerInputAction m_Wrapper;
-        public UIActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
+        private @PlayerMovementInputAction m_Wrapper;
+        public UIActions(@PlayerMovementInputAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
         public InputAction @Submit => m_Wrapper.m_UI_Submit;
         public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
@@ -1152,7 +1113,6 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
     {
         void OnMove2D(InputAction.CallbackContext context);
         void OnMove1D(InputAction.CallbackContext context);
-        void OnFire(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnJumpDown(InputAction.CallbackContext context);
         void OnFlySwitcher(InputAction.CallbackContext context);

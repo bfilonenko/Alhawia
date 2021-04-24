@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(HealthPoints))]
 [RequireComponent(typeof(CreatureController2D))]
 public class CharacterMovement : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class CharacterMovement : MonoBehaviour
     public bool isFlying = false;
 
     private CreatureController2D creatureController;
-    private PlayerInputAction inputActions;
+    private PlayerMovementInputAction inputActions;
     private Vector2 movement2D = Vector2.zero;
     private float movement1D = 0f;
 
@@ -98,7 +99,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void Awake()
     {
-        inputActions = new PlayerInputAction();
+        inputActions = new PlayerMovementInputAction();
         creatureController = GetComponent<CreatureController2D>();
         defaultPlayerLayer = gameObject.layer;
     }
@@ -195,6 +196,18 @@ public class CharacterMovement : MonoBehaviour
         else
         {
             movement = Vector2.right * movement1D;
+        }
+
+        if (!creatureController.IsFlipLocked())
+        {
+            if (movement.x > Mathf.Epsilon)
+            {
+                creatureController.Flip(true);
+            }
+            if (movement.x < -Mathf.Epsilon)
+            {
+                creatureController.Flip(false);
+            }
         }
 
         creatureController.Move(movement * movementSpeed);

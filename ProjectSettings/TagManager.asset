@@ -14,13 +14,13 @@ TagManager:
   - 
   - 
   - Player
+  - IgnoringPlatformPlayer
+  - 
   - Monster
-  - IgnoringPlatform
+  - IgnoringPlatformMonster
   - 
-  - 
-  - 
-  - 
-  - 
+  - PlayersBullet
+  - MonstersBullet
   - 
   - 
   - 
@@ -41,9 +41,6 @@ TagManager:
   - name: Background
     uniqueID: 2234905731
     locked: 0
-  - name: Creatures
-    uniqueID: 1941531099
-    locked: 0
   - name: Walls
     uniqueID: 3028344685
     locked: 0
@@ -52,6 +49,15 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 847408067
+    locked: 0
+  - name: Monster
+    uniqueID: 2972955355
+    locked: 0
+  - name: MonstersBullet
+    uniqueID: 3972120805
+    locked: 0
+  - name: PlayersBullet
+    uniqueID: 2423345775
     locked: 0
   - name: Default
     uniqueID: 0

@@ -23,6 +23,7 @@ public class CreatureController2D : MonoBehaviour
 
     public bool isDrawGizgos = true;
 
+
     private Rigidbody2D mainRigidbody2D;
 
     private readonly List<Collider2D> overlapedColliders = new();
@@ -30,6 +31,11 @@ public class CreatureController2D : MonoBehaviour
     private Vector3 currentVelocity = Vector3.zero;
 
     private float defaultGravityScale;
+
+    private int lockFlipCounter = 0;
+
+    private bool isLookingToRight = true;
+
 
     public void SetFlying()
     {
@@ -53,6 +59,41 @@ public class CreatureController2D : MonoBehaviour
         isFlying = false;
     }
 
+    public void LockFlip()
+    {
+        ++lockFlipCounter;
+    }
+
+    public void UnlockFlip()
+    {
+        --lockFlipCounter;
+    }
+
+    public bool IsFlipLocked()
+    {
+        Debug.Assert(lockFlipCounter >= 0);
+        return lockFlipCounter > 0;
+    }
+
+    public void Flip(bool toRight)
+    {
+        if (toRight)
+        {
+            transform.rotation = Quaternion.identity;
+            isLookingToRight = true;
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            isLookingToRight = false;
+        }
+    }
+
+    public bool IsLookingToRight()
+    {
+        return isLookingToRight;
+    }
+
     public bool IsGrounded()
     {
         if (groundedCollider)
@@ -62,7 +103,7 @@ public class CreatureController2D : MonoBehaviour
         return false;
     }
 
-    public bool IsLeftWall()
+    public bool IsLeftWallRaw()
     {
         if (leftWallCollider)
         {
@@ -71,7 +112,7 @@ public class CreatureController2D : MonoBehaviour
         return false;
     }
 
-    public bool IsRightWall()
+    public bool IsRightWallRaw()
     {
         if (rightWallCollider)
         {
@@ -80,7 +121,7 @@ public class CreatureController2D : MonoBehaviour
         return false;
     }
 
-    public bool IsLeftEndOfGround()
+    public bool IsLeftEndOfGroundRaw()
     {
         if (leftEndOfGroundCollider)
         {
@@ -89,13 +130,61 @@ public class CreatureController2D : MonoBehaviour
         return true;
     }
 
-    public bool IsRightEndOfGround()
+    public bool IsRightEndOfGroundRaw()
     {
         if (rightEndOfGroundCollider)
         {
             return !rightEndOfGroundCollider.IsTouchingLayers(groundedLayerMask);
         }
         return true;
+    }
+
+    public bool IsLeftWall()
+    {
+        if (isLookingToRight)
+        {
+            return IsLeftWallRaw();
+        }
+        else
+        {
+            return IsRightWallRaw();
+        }
+    }
+
+    public bool IsRightWall()
+    {
+        if (isLookingToRight)
+        {
+            return IsRightWallRaw();
+        }
+        else
+        {
+            return IsLeftWallRaw();
+        }
+    }
+
+    public bool IsLeftEndOfGround()
+    {
+        if (isLookingToRight)
+        {
+            return IsLeftEndOfGroundRaw();
+        }
+        else
+        {
+            return IsRightEndOfGroundRaw();
+        }
+    }
+
+    public bool IsRightEndOfGround()
+    {
+        if (isLookingToRight)
+        {
+            return IsRightEndOfGroundRaw();
+        }
+        else
+        {
+            return IsLeftEndOfGroundRaw();
+        }
     }
 
     public bool IsCollidingWithPlatform()

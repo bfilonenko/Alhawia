@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(HealthPoints))]
 [RequireComponent(typeof(CreatureController2D))]
 public class MonsterBehaviour : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class MonsterBehaviour : MonoBehaviour
     public bool isFlying = false;
     public bool isMovingFromSideToSide = false;
     public bool isFallingFromPlatform = false;
+    public bool isFlippable = true;
 
 
     private CreatureController2D creatureController;
@@ -49,20 +51,32 @@ public class MonsterBehaviour : MonoBehaviour
         {
             if (currentDirection1D == Direction1D.Right)
             {
-                if ((!isFallingFromPlatform && creatureController.IsRightEndOfGround()) ||
+                if ((!isFallingFromPlatform &&
+                    creatureController.IsGrounded() &&
+                    creatureController.IsRightEndOfGround()) ||
                     (creatureController.IsRightWall()))
                 {
                     currentDirection1D = Direction1D.Left;
                     currentTarget = Vector2.left;
+                    if (isFlippable)
+                    {
+                        creatureController.Flip(false);
+                    }
                 }
             }
             else if (currentDirection1D == Direction1D.Left)
             {
-                if ((!isFallingFromPlatform && creatureController.IsLeftEndOfGround()) ||
+                if ((!isFallingFromPlatform &&
+                    creatureController.IsGrounded() &&
+                    creatureController.IsLeftEndOfGround()) ||
                     (creatureController.IsLeftWall()))
                 {
                     currentDirection1D = Direction1D.Right;
                     currentTarget = Vector2.right;
+                    if (isFlippable)
+                    {
+                        creatureController.Flip(true);
+                    }
                 }
             }
 
