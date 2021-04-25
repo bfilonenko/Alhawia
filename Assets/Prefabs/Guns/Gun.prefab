@@ -159,6 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70e4c693c15e430419bbd9a8df7b9679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
 --- !u!114 &2552085402192095229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,7 +180,6 @@ MonoBehaviour:
   recoil: 0
   cooldown: 0.2
   scatter: 2
-  damage: 40
   bulletForce: 2000
   mouseButtonToShoot: 0
   creatureController: {fileID: 0}

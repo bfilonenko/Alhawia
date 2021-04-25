@@ -2,6 +2,8 @@ using UnityEngine;
 
 public static class CommonUtils
 {
+    public static float Epsilon = 0.001f;
+
     public static Vector2 GetMouseWorldPosition(Camera camera, Vector2 mousePosition)
     {
         Vector3 mouseWorldPosition = camera.ScreenToWorldPoint(mousePosition);

@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class CreatureController2D : MonoBehaviour
 {
+    public Animator animator;
+
     public LayerMask groundedLayerMask;
     public BoxCollider2D groundedCollider;
     public BoxCollider2D leftWallCollider;
@@ -233,6 +235,12 @@ public class CreatureController2D : MonoBehaviour
         {
             return;
         }
+        if (animator)
+        {
+            animator.SetBool("IsJumping", true);
+            animator.SetBool("IsFalling", false);
+        }
+
         mainRigidbody2D.velocity = new Vector2(mainRigidbody2D.velocity.x, force);
     }
 
@@ -265,6 +273,30 @@ public class CreatureController2D : MonoBehaviour
         else
         {
             mainRigidbody2D.gravityScale = defaultGravityScale;
+        }
+    }
+
+    private void Update()
+    {
+        if (!isFlying)
+        {
+            if (mainRigidbody2D.velocity.y < -CommonUtils.Epsilon)
+            {
+                if (animator)
+                {
+                    animator.SetBool("IsJumping", false);
+                    animator.SetBool("IsFalling", true);
+                }
+            }
+
+            if (Mathf.Abs(mainRigidbody2D.velocity.y) < CommonUtils.Epsilon)
+            {
+                if (animator)
+                {
+                    animator.SetBool("IsJumping", false);
+                    animator.SetBool("IsFalling", false);
+                }
+            }
         }
     }
 

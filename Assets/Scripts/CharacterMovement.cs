@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CreatureController2D))]
 public class CharacterMovement : MonoBehaviour
 {
+    public Animator animator;
+
     public float movementSpeed = 1000f;
     public float jumpForse = 3100f;
     public float littleJumpForse = 2000f;
@@ -192,10 +194,12 @@ public class CharacterMovement : MonoBehaviour
         if (isFlying)
         {
             movement = movement2D;
+            animator.SetFloat("Speed", 0f);
         }
         else
         {
             movement = Vector2.right * movement1D;
+            animator.SetFloat("Speed", Mathf.Abs(movement1D));
         }
 
         if (!creatureController.IsFlipLocked())
@@ -211,6 +215,8 @@ public class CharacterMovement : MonoBehaviour
         }
 
         creatureController.Move(movement * movementSpeed);
+
+        Debug.Log(GetComponent<Rigidbody2D>().velocity);
     }
 
     private void OnDisable()
