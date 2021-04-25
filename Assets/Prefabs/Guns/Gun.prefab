@@ -173,8 +173,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
+  audioManager: {fileID: 0}
   firePoint: {fileID: 2552085401280532912}
   bulletPrefab: {fileID: 6127815264583873713, guid: a42681059717e4b4fb9264e423f1a26e, type: 3}
+  shootSound: {fileID: 11400000, guid: 90eccf07e1d40f740b2d1b6548c8dca0, type: 2}
   inactiveTime: 0.5
   gunAlignmentSpeed: 8
   recoil: 0

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ead21bd89f0ec44ebd7bdace0959095, type: 3}
+  m_Name: BaseGunShoot
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: b58f7a6b2d10ea34daff9e4f7d4cede2, type: 3}
+  mixerGroup: {fileID: -2312931643855664620, guid: 0f533178f2ce63d4192aac07fbb3f867, type: 2}
+  dublicateCount: 15
+  volume: 1
+  pitch: 1
+  randomVolume: 0.1
+  randomPitch: 0.1
+  loop: 0

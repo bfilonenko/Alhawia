@@ -41,6 +41,14 @@ public class @PlayerMouseInputAction : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""EndlessShooting"",
+                    ""type"": ""Button"",
+                    ""id"": ""1aaefec3-22ef-40cb-8479-7459c2cd6ca2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -76,6 +84,17 @@ public class @PlayerMouseInputAction : IInputActionCollection, IDisposable
                     ""action"": ""RightMouseFire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e56c41e0-868d-4e4e-b620-0400488afe1b"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EndlessShooting"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -87,6 +106,7 @@ public class @PlayerMouseInputAction : IInputActionCollection, IDisposable
         m_Mouse_MousePosition = m_Mouse.FindAction("MousePosition", throwIfNotFound: true);
         m_Mouse_LeftMouseFire = m_Mouse.FindAction("LeftMouseFire", throwIfNotFound: true);
         m_Mouse_RightMouseFire = m_Mouse.FindAction("RightMouseFire", throwIfNotFound: true);
+        m_Mouse_EndlessShooting = m_Mouse.FindAction("EndlessShooting", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -139,6 +159,7 @@ public class @PlayerMouseInputAction : IInputActionCollection, IDisposable
     private readonly InputAction m_Mouse_MousePosition;
     private readonly InputAction m_Mouse_LeftMouseFire;
     private readonly InputAction m_Mouse_RightMouseFire;
+    private readonly InputAction m_Mouse_EndlessShooting;
     public struct MouseActions
     {
         private @PlayerMouseInputAction m_Wrapper;
@@ -146,6 +167,7 @@ public class @PlayerMouseInputAction : IInputActionCollection, IDisposable
         public InputAction @MousePosition => m_Wrapper.m_Mouse_MousePosition;
         public InputAction @LeftMouseFire => m_Wrapper.m_Mouse_LeftMouseFire;
         public InputAction @RightMouseFire => m_Wrapper.m_Mouse_RightMouseFire;
+        public InputAction @EndlessShooting => m_Wrapper.m_Mouse_EndlessShooting;
         public InputActionMap Get() { return m_Wrapper.m_Mouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -164,6 +186,9 @@ public class @PlayerMouseInputAction : IInputActionCollection, IDisposable
                 @RightMouseFire.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnRightMouseFire;
                 @RightMouseFire.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnRightMouseFire;
                 @RightMouseFire.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnRightMouseFire;
+                @EndlessShooting.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnEndlessShooting;
+                @EndlessShooting.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnEndlessShooting;
+                @EndlessShooting.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnEndlessShooting;
             }
             m_Wrapper.m_MouseActionsCallbackInterface = instance;
             if (instance != null)
@@ -177,6 +202,9 @@ public class @PlayerMouseInputAction : IInputActionCollection, IDisposable
                 @RightMouseFire.started += instance.OnRightMouseFire;
                 @RightMouseFire.performed += instance.OnRightMouseFire;
                 @RightMouseFire.canceled += instance.OnRightMouseFire;
+                @EndlessShooting.started += instance.OnEndlessShooting;
+                @EndlessShooting.performed += instance.OnEndlessShooting;
+                @EndlessShooting.canceled += instance.OnEndlessShooting;
             }
         }
     }
@@ -186,5 +214,6 @@ public class @PlayerMouseInputAction : IInputActionCollection, IDisposable
         void OnMousePosition(InputAction.CallbackContext context);
         void OnLeftMouseFire(InputAction.CallbackContext context);
         void OnRightMouseFire(InputAction.CallbackContext context);
+        void OnEndlessShooting(InputAction.CallbackContext context);
     }
 }

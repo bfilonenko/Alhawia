@@ -20,9 +20,13 @@ public class BasePlayerGunBehaviour : MonoBehaviour
 
 
     public Camera mainCamera;
+    public AudioManager audioManager;
+
     public Transform firePoint;
 
     public GameObject bulletPrefab;
+
+    public Sound shootSound;
 
     public float inactiveTime = 1f;
     public float gunAlignmentSpeed = 1f;
@@ -142,6 +146,7 @@ public class BasePlayerGunBehaviour : MonoBehaviour
         baseGunParameters = GetComponent<BaseGunParameters>();
 
         CommonUtils.CheckMainCameraNotNullAndTryToSet(ref mainCamera);
+        CommonUtils.CheckFieldNotNullAndTryToSet(ref audioManager, "Audio Manager");
         CommonUtils.CheckFieldNotNull(creatureController, "Creature Controller");
     }
 
@@ -165,6 +170,8 @@ public class BasePlayerGunBehaviour : MonoBehaviour
             inputActions.Mouse.RightMouseFire.performed += StartShooting;
             inputActions.Mouse.RightMouseFire.canceled += StopShooting;
         }
+
+        inputActions.Mouse.EndlessShooting.performed += StartShooting;
     }
 
     private void Update()
@@ -181,6 +188,11 @@ public class BasePlayerGunBehaviour : MonoBehaviour
 
             BaseBulletParameters baseBulletParameters = bullet.GetComponent<BaseBulletParameters>();
             baseBulletParameters.damage = baseGunParameters.damage;
+
+            if (shootSound)
+            {
+                audioManager.PlaySound(shootSound);
+            }
         }
     }
 

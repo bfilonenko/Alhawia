@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class CreatureController2D : MonoBehaviour
@@ -23,6 +24,9 @@ public class CreatureController2D : MonoBehaviour
 
     public bool isFlying = false;
 
+    public UnityEvent onJumping;
+    public UnityEvent onLanding;
+
     public bool isDrawGizgos = true;
 
 
@@ -33,6 +37,8 @@ public class CreatureController2D : MonoBehaviour
     private Vector3 currentVelocity = Vector3.zero;
 
     private float defaultGravityScale;
+
+    private bool isFalling = false;
 
     private int lockFlipCounter = 0;
 
@@ -235,11 +241,14 @@ public class CreatureController2D : MonoBehaviour
         {
             return;
         }
+
         if (animator)
         {
             animator.SetBool("IsJumping", true);
             animator.SetBool("IsFalling", false);
         }
+
+        onJumping.Invoke();
 
         mainRigidbody2D.velocity = new Vector2(mainRigidbody2D.velocity.x, force);
     }
@@ -282,6 +291,7 @@ public class CreatureController2D : MonoBehaviour
         {
             if (mainRigidbody2D.velocity.y < -CommonUtils.Epsilon)
             {
+                isFalling = true;
                 if (animator)
                 {
                     animator.SetBool("IsJumping", false);
@@ -291,6 +301,12 @@ public class CreatureController2D : MonoBehaviour
 
             if (Mathf.Abs(mainRigidbody2D.velocity.y) < CommonUtils.Epsilon)
             {
+                if (isFalling)
+                {
+                    isFalling = false;
+                    onLanding.Invoke();
+                }
+
                 if (animator)
                 {
                     animator.SetBool("IsJumping", false);
