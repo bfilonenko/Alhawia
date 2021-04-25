@@ -188,9 +188,12 @@ public class BasePlayerGunBehaviour : MonoBehaviour
         {
             lastShootTime = Time.time;
 
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            Vector3 gunRotation = firePoint.eulerAngles;
+            gunRotation.z += (Random.value - 0.5f) * scatter;
+
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(gunRotation));
             Rigidbody2D bulletRigidbody2D = bullet.GetComponent<Rigidbody2D>();
-            bulletRigidbody2D.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
+            bulletRigidbody2D.AddForce(bullet.transform.right * bulletForce, ForceMode2D.Impulse);
 
             BaseBulletParameters baseBulletParameters = bullet.GetComponent<BaseBulletParameters>();
             baseBulletParameters.damage = baseGunParameters.damage;

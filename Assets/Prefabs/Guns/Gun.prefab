@@ -183,8 +183,8 @@ MonoBehaviour:
   gunAlignmentSpeed: 8
   recoil: 0
   cooldown: 0.05
-  scatter: 2
-  bulletForce: 2000
+  scatter: 5
+  bulletForce: 3000
   mouseButtonToShoot: 0
   creatureController: {fileID: 0}
   onShoot:
