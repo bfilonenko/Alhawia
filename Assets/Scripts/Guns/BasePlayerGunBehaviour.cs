@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(BaseGunParameters))]
@@ -21,12 +22,14 @@ public class BasePlayerGunBehaviour : MonoBehaviour
 
     public Camera mainCamera;
     public AudioManager audioManager;
+    public SFXManager sfxManager;
 
     public Transform firePoint;
 
     public GameObject bulletPrefab;
 
     public Sound shootSound;
+    public GameObject shootSFXPrefab;
 
     public float inactiveTime = 1f;
     public float gunAlignmentSpeed = 1f;
@@ -40,6 +43,8 @@ public class BasePlayerGunBehaviour : MonoBehaviour
     public MouseButtonToShoot mouseButtonToShoot = MouseButtonToShoot.Left;
 
     public CreatureController2D creatureController;
+
+    public UnityEvent onShoot;
 
 
     [HideInInspector]
@@ -147,6 +152,7 @@ public class BasePlayerGunBehaviour : MonoBehaviour
 
         CommonUtils.CheckMainCameraNotNullAndTryToSet(ref mainCamera);
         CommonUtils.CheckFieldNotNullAndTryToSet(ref audioManager, "Audio Manager");
+        CommonUtils.CheckFieldNotNullAndTryToSet(ref sfxManager, "SFX Manager");
         CommonUtils.CheckFieldNotNull(creatureController, "Creature Controller");
     }
 
@@ -189,10 +195,9 @@ public class BasePlayerGunBehaviour : MonoBehaviour
             BaseBulletParameters baseBulletParameters = bullet.GetComponent<BaseBulletParameters>();
             baseBulletParameters.damage = baseGunParameters.damage;
 
-            if (shootSound)
-            {
-                audioManager.PlaySound(shootSound);
-            }
+            onShoot.Invoke();
+            audioManager.PlaySound(shootSound);
+            sfxManager.RunSFX(shootSFXPrefab, firePoint, 0f);
         }
     }
 

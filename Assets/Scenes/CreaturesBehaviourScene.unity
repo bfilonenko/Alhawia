@@ -259,7 +259,7 @@ Transform:
   - {fileID: 973101462}
   - {fileID: 1735040267}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &279088713
 MonoBehaviour:
@@ -389,7 +389,7 @@ Transform:
   - {fileID: 1449239176}
   - {fileID: 1319288731}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &334704028
 GameObject:
@@ -1944,6 +1944,49 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &885787405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 885787407}
+  - component: {fileID: 885787406}
+  m_Layer: 0
+  m_Name: SFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &885787406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885787405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df87b4e242b9483428e1638984638f06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &885787407
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885787405}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &973101459
 GameObject:
   m_ObjectHideFlags: 0
@@ -2045,7 +2088,7 @@ Transform:
   - {fileID: 789323062}
   - {fileID: 2007527373}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1018499420
 PrefabInstance:
@@ -2598,7 +2641,7 @@ Transform:
   - {fileID: 1884406116}
   - {fileID: 1018499421}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1410126185
 GameObject:
@@ -15040,7 +15083,7 @@ RectTransform:
   m_Children:
   - {fileID: 414768682}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -26965,13 +27008,13 @@ PrefabInstance:
       value: Gun
       objectReference: {fileID: 0}
     - target: {fileID: 2552085402192095229, guid: 76b19c5b413dbe841a2066de84060837, type: 3}
-      propertyPath: cooldown
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 2552085402192095229, guid: 76b19c5b413dbe841a2066de84060837, type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 334704030}
+    - target: {fileID: 2552085402192095229, guid: 76b19c5b413dbe841a2066de84060837, type: 3}
+      propertyPath: sfxManager
+      value: 
+      objectReference: {fileID: 885787406}
     - target: {fileID: 2552085402192095229, guid: 76b19c5b413dbe841a2066de84060837, type: 3}
       propertyPath: audioManager
       value: 
