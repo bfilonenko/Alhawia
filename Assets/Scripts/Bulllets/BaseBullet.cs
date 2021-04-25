@@ -1,14 +1,21 @@
 using UnityEngine;
+using UnityEngine.Events;
 
-[RequireComponent(typeof(BaseBulletParameters))]
+[RequireComponent(typeof(BaseBulletData))]
 public class BaseBullet : MonoBehaviour
 {
-    private BaseBulletParameters bulletParameters;
+    public Sound impactSound;
+    public GameObject impactPrefab;
+
+    public UnityEvent onImpact;
+
+
+    private BaseBulletData bulletParameters;
 
 
     private void Awake()
     {
-        bulletParameters = GetComponent<BaseBulletParameters>();
+        bulletParameters = GetComponent<BaseBulletData>();
     }
 
     private void Start()
@@ -18,6 +25,23 @@ public class BaseBullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        onImpact.Invoke();
+        if (impactSound)
+        {
+            bulletParameters.audioManager.PlaySound(impactSound);
+        }
+        if (impactPrefab)
+        {
+            Vector2 normal = collision.GetContact(0).normal;
+
+            bulletParameters.sfxManager.RunSFX(
+                impactPrefab,
+                collision.GetContact(0).point,
+                Quaternion.Euler(0f, 0f, Mathf.Atan2(normal.y, normal.x) * Mathf.Rad2Deg),
+                0f);
+            //bulletParameters.sfxManager.RunSFX(impactPrefab, transform, 0f);
+        }
+
         if (collision.gameObject.TryGetComponent(out HealthPoints healthPoints))
         {
             healthPoints.DealDamage(bulletParameters.damage);

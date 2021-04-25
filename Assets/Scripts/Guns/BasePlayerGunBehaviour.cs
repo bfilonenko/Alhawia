@@ -195,12 +195,20 @@ public class BasePlayerGunBehaviour : MonoBehaviour
             Rigidbody2D bulletRigidbody2D = bullet.GetComponent<Rigidbody2D>();
             bulletRigidbody2D.AddForce(bullet.transform.right * bulletForce, ForceMode2D.Impulse);
 
-            BaseBulletParameters baseBulletParameters = bullet.GetComponent<BaseBulletParameters>();
+            BaseBulletData baseBulletParameters = bullet.GetComponent<BaseBulletData>();
             baseBulletParameters.damage = baseGunParameters.damage;
+            baseBulletParameters.audioManager = audioManager;
+            baseBulletParameters.sfxManager = sfxManager;
 
             onShoot.Invoke();
-            audioManager.PlaySound(shootSound);
-            sfxManager.RunSFX(shootSFXPrefab, firePoint, 0f);
+            if (shootSound)
+            {
+                audioManager.PlaySound(shootSound);
+            }
+            if (shootSFXPrefab)
+            {
+                sfxManager.RunSFX(shootSFXPrefab, firePoint, 0f);
+            }
         }
     }
 

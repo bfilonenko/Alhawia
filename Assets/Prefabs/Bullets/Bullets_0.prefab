@@ -132,7 +132,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &1209636282501918637
 MonoBehaviour:
@@ -146,6 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b91bbdbbd5b84dc48a3d30c782d72943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 0}
+  sfxManager: {fileID: 0}
   lifeTime: 10
   damage: 1
 --- !u!114 &6059904913617597654
@@ -160,3 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65edc0f2ed627c7438240e07e1741fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  impactSound: {fileID: 0}
+  impactPrefab: {fileID: 6764125892907652643, guid: 389d2bf85939bfb4c8616e477aec17bb, type: 3}
+  onImpact:
+    m_PersistentCalls:
+      m_Calls: []

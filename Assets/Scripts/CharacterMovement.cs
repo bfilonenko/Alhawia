@@ -215,8 +215,6 @@ public class CharacterMovement : MonoBehaviour
         }
 
         creatureController.Move(movement * movementSpeed);
-
-        Debug.Log(GetComponent<Rigidbody2D>().velocity);
     }
 
     private void OnDisable()
