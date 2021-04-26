@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(BaseGunParameters))]
+[RequireComponent(typeof(BaseGunData))]
 public class BasePlayerGunBehaviour : MonoBehaviour
 {
     public enum GunState : byte
@@ -53,7 +53,7 @@ public class BasePlayerGunBehaviour : MonoBehaviour
 
     private GunState previousGunState = GunState.Idle;
 
-    private BaseGunParameters baseGunParameters;
+    private BaseGunData baseGunData;
 
     private PlayerMouseInputAction inputActions;
 
@@ -148,7 +148,7 @@ public class BasePlayerGunBehaviour : MonoBehaviour
     private void Awake()
     {
         inputActions = new PlayerMouseInputAction();
-        baseGunParameters = GetComponent<BaseGunParameters>();
+        baseGunData = GetComponent<BaseGunData>();
 
         CommonUtils.CheckMainCameraNotNullAndTryToSet(ref mainCamera);
         CommonUtils.CheckFieldNotNullAndTryToSet(ref audioManager, "Audio Manager");
@@ -195,10 +195,10 @@ public class BasePlayerGunBehaviour : MonoBehaviour
             Rigidbody2D bulletRigidbody2D = bullet.GetComponent<Rigidbody2D>();
             bulletRigidbody2D.AddForce(bullet.transform.right * bulletForce, ForceMode2D.Impulse);
 
-            BaseBulletData baseBulletParameters = bullet.GetComponent<BaseBulletData>();
-            baseBulletParameters.damage = baseGunParameters.damage;
-            baseBulletParameters.audioManager = audioManager;
-            baseBulletParameters.sfxManager = sfxManager;
+            BaseBulletData baseBulletData = bullet.GetComponent<BaseBulletData>();
+            CommonUtils.CopyBaseGunDataToBaseBulletData(baseGunData, baseBulletData);
+            baseBulletData.audioManager = audioManager;
+            baseBulletData.sfxManager = sfxManager;
 
             onShoot.Invoke();
             if (shootSound)

@@ -10,17 +10,17 @@ public class BaseBullet : MonoBehaviour
     public UnityEvent onImpact;
 
 
-    private BaseBulletData bulletParameters;
+    private BaseBulletData bulletData;
 
 
     private void Awake()
     {
-        bulletParameters = GetComponent<BaseBulletData>();
+        bulletData = GetComponent<BaseBulletData>();
     }
 
     private void Start()
     {
-        Destroy(gameObject, bulletParameters.lifeTime);
+        Destroy(gameObject, bulletData.lifeTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -28,13 +28,13 @@ public class BaseBullet : MonoBehaviour
         onImpact.Invoke();
         if (impactSound)
         {
-            bulletParameters.audioManager.PlaySound(impactSound);
+            bulletData.audioManager.PlaySound(impactSound);
         }
         if (impactPrefab)
         {
             Vector2 normal = collision.GetContact(0).normal;
 
-            bulletParameters.sfxManager.RunSFX(
+            bulletData.sfxManager.RunSFX(
                 impactPrefab,
                 collision.GetContact(0).point,
                 Quaternion.Euler(0f, 0f, Mathf.Atan2(normal.y, normal.x) * Mathf.Rad2Deg),
@@ -43,7 +43,9 @@ public class BaseBullet : MonoBehaviour
 
         if (collision.gameObject.TryGetComponent(out HealthPoints healthPoints))
         {
-            healthPoints.DealDamage(bulletParameters.damage);
+            healthPoints.DealDamage(bulletData.damage);
+
+            collision.rigidbody.AddForce(transform.right * bulletData.enemyKnockBack, ForceMode2D.Impulse);
         }
 
         Destroy(gameObject);

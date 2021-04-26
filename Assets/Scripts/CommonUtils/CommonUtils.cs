@@ -36,4 +36,11 @@ public static class CommonUtils
     {
         Debug.Assert(field, fieldName + " isn't set");
     }
+
+    public static void CopyBaseGunDataToBaseBulletData(BaseGunData baseGunData, BaseBulletData baseBulletData)
+    {
+        baseBulletData.lifeTime = baseGunData.lifeTime;
+        baseBulletData.damage = baseGunData.damage;
+        baseBulletData.enemyKnockBack = baseGunData.enemyKnockBack;
+    }
 }
