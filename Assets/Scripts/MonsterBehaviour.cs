@@ -12,6 +12,8 @@ public class MonsterBehaviour : MonoBehaviour
     }
 
 
+    public Animator animator;
+
     public float movementSpeed = 1000f;
     public float jumpForse = 3100f;
     public float littleJumpForse = 2000f;
@@ -45,7 +47,7 @@ public class MonsterBehaviour : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isMovingFromSideToSide)
         {
@@ -79,7 +81,14 @@ public class MonsterBehaviour : MonoBehaviour
                     }
                 }
             }
+        }
+    }
 
+    private void Update()
+    {
+        if (isMovingFromSideToSide)
+        {
+            animator.SetFloat("Speed", Mathf.Abs(currentTarget.x));
             creatureController.Move(currentTarget * movementSpeed);
         }
     }

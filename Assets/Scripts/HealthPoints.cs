@@ -5,6 +5,7 @@ public class HealthPoints : MonoBehaviour
 {
     public float maxHealth = 100f;
 
+    public UnityEvent onDamage;
     public UnityEvent onDead;
 
 
@@ -31,7 +32,11 @@ public class HealthPoints : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
-        if (!IsAlive())
+        if (IsAlive())
+        {
+            onDamage.Invoke();
+        }
+        else
         {
             onDead.Invoke();
         }

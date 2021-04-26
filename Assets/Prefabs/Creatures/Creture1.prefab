@@ -101,6 +101,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  onDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1231456161580658677}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: TakeDamage
+          m_BoolArgument: 0
+        m_CallState: 2
   onDead:
     m_PersistentCalls:
       m_Calls:
@@ -161,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3118c1c18a037d41a45a238b7987ba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1231456161580658677}
   movementSpeed: 1000
   jumpForse: 3100
   littleJumpForse: 2000

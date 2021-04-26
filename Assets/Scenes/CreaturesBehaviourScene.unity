@@ -342,6 +342,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  onDamage:
+    m_PersistentCalls:
+      m_Calls: []
   onDead:
     m_PersistentCalls:
       m_Calls: []
@@ -15142,7 +15145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1393738081208864719, guid: 3a213810f54216545829aaf0daf1424f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 243
+      value: 101.3
       objectReference: {fileID: 0}
     - target: {fileID: 1393738081208864719, guid: 3a213810f54216545829aaf0daf1424f, type: 3}
       propertyPath: m_LocalPosition.z

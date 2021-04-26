@@ -39,7 +39,6 @@ public class BaseBullet : MonoBehaviour
                 collision.GetContact(0).point,
                 Quaternion.Euler(0f, 0f, Mathf.Atan2(normal.y, normal.x) * Mathf.Rad2Deg),
                 0f);
-            //bulletParameters.sfxManager.RunSFX(impactPrefab, transform, 0f);
         }
 
         if (collision.gameObject.TryGetComponent(out HealthPoints healthPoints))
