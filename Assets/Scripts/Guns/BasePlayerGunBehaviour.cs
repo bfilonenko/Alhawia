@@ -210,6 +210,11 @@ public class BasePlayerGunBehaviour : MonoBehaviour
             baseBulletData.audioManager = audioManager;
             baseBulletData.sfxManager = sfxManager;
 
+            Vector2 playerKnockBack = -bullet.transform.right * baseGunData.playerKnockBack;
+            playerKnockBack.y = Mathf.Max(0f, playerKnockBack.y);
+
+            baseGunData.ownerRigidbody.AddForce(playerKnockBack, ForceMode2D.Impulse);
+
             if (cinemachineDirectImpulseSource)
             {
                 cinemachineCommonImpulseSource.GenerateImpulse(baseGunData.shakeCommonImpulseAmplitude);

@@ -7,6 +7,7 @@ public class BaseGunData : MonoBehaviour
     public float lifeTime = 10f;
     public float damage = 20f;
     public float enemyKnockBack = 100000f;
+    public float playerKnockBack = 10000f;
 
     public float shakeDirectImpulseAmplitude = 1f;
     public float shakeCommonImpulseAmplitude = 1f;

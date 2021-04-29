@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ImpulseDefinition:
     m_ImpulseChannel: 1
-    m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_RawSignal: {fileID: 11400000, guid: a5673ca1a464ba14d9f1c52f2d843008, type: 2}
     m_AmplitudeGain: 0.5
     m_FrequencyGain: 5
     m_RepeatMode: 0
@@ -249,6 +249,7 @@ MonoBehaviour:
   lifeTime: 10
   damage: 19
   enemyKnockBack: 100000
+  playerKnockBack: 10000
   shakeDirectImpulseAmplitude: 10
   shakeCommonImpulseAmplitude: 10
   shakeDuration: 1
