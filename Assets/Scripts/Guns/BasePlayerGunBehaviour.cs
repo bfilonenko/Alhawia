@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -23,6 +24,9 @@ public class BasePlayerGunBehaviour : MonoBehaviour
     public Camera mainCamera;
     public AudioManager audioManager;
     public SFXManager sfxManager;
+
+    public CinemachineImpulseSource cinemachineCommonImpulseSource;
+    public CinemachineImpulseSource cinemachineDirectImpulseSource;
 
     public Transform firePoint;
 
@@ -72,6 +76,11 @@ public class BasePlayerGunBehaviour : MonoBehaviour
 
     private void StopShooting(InputAction.CallbackContext _)
     {
+        if (gunState != GunState.Shooting)
+        {
+            Debug.LogWarning("Fire button released without pressing");
+            return;
+        }
         gunState = GunState.Cessation;
         cessationTime = 0f;
     }
@@ -85,7 +94,8 @@ public class BasePlayerGunBehaviour : MonoBehaviour
     {
         if (previousGunState != gunState)
         {
-            if (gunState == GunState.Shooting && !isLocked)
+            if ((gunState == GunState.Shooting || gunState == GunState.Cessation)
+                && !isLocked)
             {
                 isLocked = true;
                 creatureController.LockFlip();
@@ -200,6 +210,11 @@ public class BasePlayerGunBehaviour : MonoBehaviour
             baseBulletData.audioManager = audioManager;
             baseBulletData.sfxManager = sfxManager;
 
+            if (cinemachineDirectImpulseSource)
+            {
+                cinemachineCommonImpulseSource.GenerateImpulse(baseGunData.shakeCommonImpulseAmplitude);
+                cinemachineDirectImpulseSource.GenerateImpulse(firePoint.right * baseGunData.shakeDirectImpulseAmplitude);
+            }
             onShoot.Invoke();
             if (shootSound)
             {

@@ -150,6 +150,7 @@ MonoBehaviour:
   sfxManager: {fileID: 0}
   lifeTime: 10
   damage: 1
+  enemyKnockBack: 10
 --- !u!114 &6059904913617597654
 MonoBehaviour:
   m_ObjectHideFlags: 0

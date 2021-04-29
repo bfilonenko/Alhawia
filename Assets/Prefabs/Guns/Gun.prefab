@@ -122,6 +122,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2552085402192095226}
+  - component: {fileID: 1841109064834197075}
+  - component: {fileID: 8951841831997028673}
   - component: {fileID: 2552085402192095228}
   - component: {fileID: 2552085402192095229}
   m_Layer: 8
@@ -147,6 +149,90 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1841109064834197075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2552085402192095227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 0.5
+    m_FrequencyGain: 5
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.05
+      m_DecayTime: 0.1
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 2000
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 5000
+    m_PropagationSpeed: 34300
+--- !u!114 &8951841831997028673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2552085402192095227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_RawSignal: {fileID: 11400000, guid: 298562336565a7c42b3a586485813182, type: 2}
+    m_AmplitudeGain: 3
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.05
+      m_DecayTime: 0.1
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 2000
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 5000
+    m_PropagationSpeed: 34300
 --- !u!114 &2552085402192095228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,9 +245,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70e4c693c15e430419bbd9a8df7b9679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerRigidbody: {fileID: 0}
   lifeTime: 10
   damage: 19
   enemyKnockBack: 100000
+  shakeDirectImpulseAmplitude: 10
+  shakeCommonImpulseAmplitude: 10
+  shakeDuration: 1
 --- !u!114 &2552085402192095229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +267,8 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   audioManager: {fileID: 0}
   sfxManager: {fileID: 0}
+  cinemachineCommonImpulseSource: {fileID: 1841109064834197075}
+  cinemachineDirectImpulseSource: {fileID: 8951841831997028673}
   firePoint: {fileID: 2552085401280532912}
   bulletPrefab: {fileID: 6127815264583873713, guid: a42681059717e4b4fb9264e423f1a26e, type: 3}
   shootSound: {fileID: 11400000, guid: 90eccf07e1d40f740b2d1b6548c8dca0, type: 2}
