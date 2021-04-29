@@ -46,6 +46,8 @@ public class BaseBullet : MonoBehaviour
             healthPoints.DealDamage(bulletData.damage);
 
             collision.rigidbody.AddForce(transform.right * bulletData.enemyKnockBack, ForceMode2D.Impulse);
+
+            bulletData.gameFreezer.Freeze(bulletData.freezeTimeOnImpact);
         }
 
         Destroy(gameObject);

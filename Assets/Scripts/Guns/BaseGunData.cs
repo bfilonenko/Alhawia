@@ -3,13 +3,23 @@ using UnityEngine;
 public class BaseGunData : MonoBehaviour
 {
     public Rigidbody2D ownerRigidbody;
+    public GameFreezer gameFreezer;
 
     public float lifeTime = 10f;
     public float damage = 20f;
     public float enemyKnockBack = 100000f;
+    public float freezeTimeOnImpact = 0.01f;
+
     public float playerKnockBack = 10000f;
 
     public float shakeDirectImpulseAmplitude = 1f;
     public float shakeCommonImpulseAmplitude = 1f;
     public float shakeDuration = 1f;
+
+
+    private void Awake()
+    {
+        CommonUtils.CheckFieldNotNull(ownerRigidbody, "Owner Rigidbody");
+        CommonUtils.CheckFieldNotNullAndTryToSet(ref gameFreezer, "Game Freezer");
+    }
 }

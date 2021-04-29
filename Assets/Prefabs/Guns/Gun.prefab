@@ -246,9 +246,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ownerRigidbody: {fileID: 0}
+  gameFreezer: {fileID: 0}
   lifeTime: 10
   damage: 19
   enemyKnockBack: 100000
+  freezeTimeOnImpact: 0.02
   playerKnockBack: 10000
   shakeDirectImpulseAmplitude: 10
   shakeCommonImpulseAmplitude: 10

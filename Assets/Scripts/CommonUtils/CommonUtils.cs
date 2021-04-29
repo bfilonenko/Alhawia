@@ -39,8 +39,10 @@ public static class CommonUtils
 
     public static void CopyBaseGunDataToBaseBulletData(BaseGunData baseGunData, BaseBulletData baseBulletData)
     {
+        baseBulletData.gameFreezer = baseGunData.gameFreezer;
         baseBulletData.lifeTime = baseGunData.lifeTime;
         baseBulletData.damage = baseGunData.damage;
         baseBulletData.enemyKnockBack = baseGunData.enemyKnockBack;
+        baseBulletData.freezeTimeOnImpact = baseGunData.freezeTimeOnImpact;
     }
 }
