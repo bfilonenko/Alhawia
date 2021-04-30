@@ -31,8 +31,10 @@ public class BasePlayerGunBehaviour : MonoBehaviour
     public Transform rotatePoint;
     public Transform movePoint;
     public Transform firePoint;
+    public Transform shellPoint;
 
     public GameObject bulletPrefab;
+    public GameObject shellPrefab;
 
     public Sound shootSound;
     public GameObject shootSFXPrefab;
@@ -47,6 +49,7 @@ public class BasePlayerGunBehaviour : MonoBehaviour
     public float scatter = 2f;
 
     public float bulletForce = 1000f;
+    public float shellForce = 100f;
 
     public MouseButtonToShoot mouseButtonToShoot = MouseButtonToShoot.Left;
 
@@ -237,6 +240,10 @@ public class BasePlayerGunBehaviour : MonoBehaviour
             {
                 sfxManager.RunSFX(shootSFXPrefab, firePoint, 0f);
             }
+
+            GameObject shell = Instantiate(shellPrefab, shellPoint.position, Quaternion.identity);
+            Rigidbody2D shellRigidbody2D = shell.GetComponent<Rigidbody2D>();
+            shellRigidbody2D.AddForce(shellPoint.right * shellForce, ForceMode2D.Impulse);
         }
     }
 
