@@ -241,7 +241,7 @@ public class BasePlayerGunBehaviour : MonoBehaviour
                 sfxManager.RunSFX(shootSFXPrefab, firePoint, 0f);
             }
 
-            GameObject shell = Instantiate(shellPrefab, shellPoint.position, Quaternion.identity);
+            GameObject shell = Instantiate(shellPrefab, shellPoint.position, Quaternion.Euler(0f, 0f, Random.rotation.eulerAngles.z));
             Rigidbody2D shellRigidbody2D = shell.GetComponent<Rigidbody2D>();
             shellRigidbody2D.AddForce(shellPoint.right * shellForce, ForceMode2D.Impulse);
         }
