@@ -28,12 +28,16 @@ public class BasePlayerGunBehaviour : MonoBehaviour
     public CinemachineImpulseSource cinemachineCommonImpulseSource;
     public CinemachineImpulseSource cinemachineDirectImpulseSource;
 
+    public Transform rotatePoint;
+    public Transform movePoint;
     public Transform firePoint;
 
     public GameObject bulletPrefab;
 
     public Sound shootSound;
     public GameObject shootSFXPrefab;
+
+    public GunKnockback gunKnockback;
 
     public float inactiveTime = 1f;
     public float gunAlignmentSpeed = 1f;
@@ -114,19 +118,19 @@ public class BasePlayerGunBehaviour : MonoBehaviour
             Vector2 mouseWorldPosition =
                 CommonUtils.GetMouseWorldPosition(mainCamera, mousePosition);
 
-            Vector2 direction = mouseWorldPosition - new Vector2(transform.position.x, transform.position.y);
+            Vector2 direction = mouseWorldPosition - new Vector2(movePoint.transform.position.x, movePoint.transform.position.y);
 
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-            if (transform.position.x < mouseWorldPosition.x)
+            if (movePoint.transform.position.x < mouseWorldPosition.x)
             {
                 creatureController.Flip(true);
-                transform.localRotation = Quaternion.Euler(0f, 0f, angle);
+                rotatePoint.transform.localRotation = Quaternion.Euler(0f, 0f, angle);
             }
             else
             {
                 creatureController.Flip(false);
-                transform.localRotation = Quaternion.Euler(0f, 0f, 180f - angle);
+                rotatePoint.transform.localRotation = Quaternion.Euler(0f, 0f, 180f - angle);
             }
         }
         else if (gunState == GunState.Cessation)
@@ -140,14 +144,14 @@ public class BasePlayerGunBehaviour : MonoBehaviour
         }
         else if (gunState == GunState.Alignment)
         {
-            if (Quaternion.Angle(transform.localRotation, Quaternion.identity) < Mathf.Epsilon)
+            if (Quaternion.Angle(movePoint.transform.localRotation, Quaternion.identity) < Mathf.Epsilon)
             {
                 gunState = GunState.Idle;
             }
             else
             {
-                transform.localRotation = Quaternion.Lerp(
-                    transform.localRotation,
+                rotatePoint.transform.localRotation = Quaternion.Lerp(
+                    rotatePoint.transform.localRotation,
                     Quaternion.identity,
                     gunAlignmentSpeed * Time.deltaTime);
             }
@@ -215,6 +219,10 @@ public class BasePlayerGunBehaviour : MonoBehaviour
 
             baseGunData.ownerRigidbody.AddForce(playerKnockBack, ForceMode2D.Impulse);
 
+            if (gunKnockback)
+            {
+                gunKnockback.Knockback(baseGunData.gunKnockbackMagnitude, baseGunData.gunKnockbackDuration);
+            }
             if (cinemachineDirectImpulseSource)
             {
                 cinemachineCommonImpulseSource.GenerateImpulse(baseGunData.shakeCommonImpulseAmplitude);

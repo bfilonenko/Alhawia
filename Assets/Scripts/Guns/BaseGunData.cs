@@ -12,6 +12,9 @@ public class BaseGunData : MonoBehaviour
 
     public float playerKnockBack = 10000f;
 
+    public float gunKnockbackMagnitude = 1f;
+    public float gunKnockbackDuration = 1f;
+
     public float shakeDirectImpulseAmplitude = 1f;
     public float shakeCommonImpulseAmplitude = 1f;
     public float shakeDuration = 1f;
