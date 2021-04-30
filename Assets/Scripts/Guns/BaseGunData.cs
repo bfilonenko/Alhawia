@@ -12,6 +12,8 @@ public class BaseGunData : MonoBehaviour
 
     public float playerKnockBack = 10000f;
 
+    public int bulletAmount = 3;
+    public float angleBetweenBullets = 5f;
     public float gunKnockbackMagnitude = 1f;
     public float gunKnockbackDuration = 1f;
 

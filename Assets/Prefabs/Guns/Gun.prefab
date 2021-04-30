@@ -282,6 +282,8 @@ MonoBehaviour:
   enemyKnockBack: 100000
   freezeTimeOnImpact: 0.02
   playerKnockBack: 10000
+  bulletAmount: 3
+  angleBetweenBullets: 5
   gunKnockbackMagnitude: 0.1
   gunKnockbackDuration: 0.1
   shakeDirectImpulseAmplitude: 10
@@ -318,8 +320,10 @@ MonoBehaviour:
   recoil: 0
   cooldown: 0.05
   scatter: 5
+  shellScatter: 5
   bulletForce: 3000
   shellForce: 1000
+  shellRandomValue: 0.2
   mouseButtonToShoot: 0
   creatureController: {fileID: 0}
   onShoot:

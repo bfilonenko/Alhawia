@@ -47,6 +47,7 @@ public class BasePlayerGunBehaviour : MonoBehaviour
     public float recoil = 0f;
     public float cooldown = 0.2f;
     public float scatter = 2f;
+    public float shellScatter = 2f;
 
     public float bulletForce = 1000f;
     public float shellForce = 100f;
@@ -163,6 +164,54 @@ public class BasePlayerGunBehaviour : MonoBehaviour
         }
     }
 
+    private void Shoot(float shootAngle, float shellAngle)
+    {
+        Vector3 gunRotation = firePoint.eulerAngles;
+        gunRotation.z = shootAngle + (Random.value - 0.5f) * scatter;
+
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(gunRotation));
+        Rigidbody2D bulletRigidbody2D = bullet.GetComponent<Rigidbody2D>();
+        bulletRigidbody2D.AddForce(bullet.transform.right * bulletForce, ForceMode2D.Impulse);
+
+        BaseBulletData baseBulletData = bullet.GetComponent<BaseBulletData>();
+        CommonUtils.CopyBaseGunDataToBaseBulletData(baseGunData, baseBulletData);
+        baseBulletData.audioManager = audioManager;
+        baseBulletData.sfxManager = sfxManager;
+
+        Vector2 playerKnockBack = -bullet.transform.right * baseGunData.playerKnockBack;
+        playerKnockBack.y = Mathf.Max(0f, playerKnockBack.y);
+
+        baseGunData.ownerRigidbody.AddForce(playerKnockBack, ForceMode2D.Impulse);
+
+        if (gunKnockback)
+        {
+            gunKnockback.Knockback(baseGunData.gunKnockbackMagnitude, baseGunData.gunKnockbackDuration);
+        }
+        if (cinemachineDirectImpulseSource)
+        {
+            cinemachineCommonImpulseSource.GenerateImpulse(baseGunData.shakeCommonImpulseAmplitude);
+            cinemachineDirectImpulseSource.GenerateImpulse(firePoint.right * baseGunData.shakeDirectImpulseAmplitude);
+        }
+        onShoot.Invoke();
+        if (shootSound)
+        {
+            audioManager.PlaySound(shootSound);
+        }
+        if (shootSFXPrefab)
+        {
+            sfxManager.RunSFX(shootSFXPrefab, firePoint, 0f);
+        }
+
+        Vector3 shellRotation = shellPoint.eulerAngles;
+        shellRotation.z = shellAngle + (Random.value - 0.5f) * shellScatter;
+        Vector3 shellDirction = new(Mathf.Cos(shellRotation.z * Mathf.Deg2Rad), Mathf.Sin(shellRotation.z * Mathf.Deg2Rad), 0f);
+
+        GameObject shell = Instantiate(shellPrefab, shellPoint.position, Quaternion.Euler(0f, 0f, Random.rotation.eulerAngles.z));
+        Rigidbody2D shellRigidbody2D = shell.GetComponent<Rigidbody2D>();
+        shellRigidbody2D.AddForce(shellDirction * shellForce * (1f - Random.Range(0f, shellRandomValue)), ForceMode2D.Impulse);
+        shellRigidbody2D.AddTorque(shellForce * (1f - Random.Range(0f, shellRandomValue)), ForceMode2D.Impulse);
+    }
+
 
     private void Awake()
     {
@@ -207,46 +256,15 @@ public class BasePlayerGunBehaviour : MonoBehaviour
         {
             lastShootTime = Time.time;
 
-            Vector3 gunRotation = firePoint.eulerAngles;
-            gunRotation.z += (Random.value - 0.5f) * scatter;
-
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(gunRotation));
-            Rigidbody2D bulletRigidbody2D = bullet.GetComponent<Rigidbody2D>();
-            bulletRigidbody2D.AddForce(bullet.transform.right * bulletForce, ForceMode2D.Impulse);
-
-            BaseBulletData baseBulletData = bullet.GetComponent<BaseBulletData>();
-            CommonUtils.CopyBaseGunDataToBaseBulletData(baseGunData, baseBulletData);
-            baseBulletData.audioManager = audioManager;
-            baseBulletData.sfxManager = sfxManager;
-
-            Vector2 playerKnockBack = -bullet.transform.right * baseGunData.playerKnockBack;
-            playerKnockBack.y = Mathf.Max(0f, playerKnockBack.y);
-
-            baseGunData.ownerRigidbody.AddForce(playerKnockBack, ForceMode2D.Impulse);
-
-            if (gunKnockback)
+            float currentShootAngle = firePoint.eulerAngles.z - baseGunData.bulletAmount * baseGunData.angleBetweenBullets / 2f;
+            float currentShellAngle = shellPoint.eulerAngles.z - baseGunData.bulletAmount * baseGunData.angleBetweenBullets / 2f;
+            
+            for (int i = 0; i < baseGunData.bulletAmount; ++i)
             {
-                gunKnockback.Knockback(baseGunData.gunKnockbackMagnitude, baseGunData.gunKnockbackDuration);
+                Shoot(currentShootAngle, currentShellAngle);
+                currentShootAngle += baseGunData.angleBetweenBullets;
+                currentShellAngle += baseGunData.angleBetweenBullets;
             }
-            if (cinemachineDirectImpulseSource)
-            {
-                cinemachineCommonImpulseSource.GenerateImpulse(baseGunData.shakeCommonImpulseAmplitude);
-                cinemachineDirectImpulseSource.GenerateImpulse(firePoint.right * baseGunData.shakeDirectImpulseAmplitude);
-            }
-            onShoot.Invoke();
-            if (shootSound)
-            {
-                audioManager.PlaySound(shootSound);
-            }
-            if (shootSFXPrefab)
-            {
-                sfxManager.RunSFX(shootSFXPrefab, firePoint, 0f);
-            }
-
-            GameObject shell = Instantiate(shellPrefab, shellPoint.position, Quaternion.Euler(0f, 0f, Random.rotation.eulerAngles.z));
-            Rigidbody2D shellRigidbody2D = shell.GetComponent<Rigidbody2D>();
-            shellRigidbody2D.AddForce(shellPoint.right * shellForce * (1f - Random.Range(0f, shellRandomValue)), ForceMode2D.Impulse);
-            shellRigidbody2D.AddTorque(shellForce * (1f - Random.Range(0f, shellRandomValue)), ForceMode2D.Impulse);
         }
     }
 
