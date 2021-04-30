@@ -50,6 +50,8 @@ public class BasePlayerGunBehaviour : MonoBehaviour
 
     public float bulletForce = 1000f;
     public float shellForce = 100f;
+    [Range(0f, 1f)]
+    public float shellRandomValue = 0.2f;
 
     public MouseButtonToShoot mouseButtonToShoot = MouseButtonToShoot.Left;
 
@@ -147,7 +149,7 @@ public class BasePlayerGunBehaviour : MonoBehaviour
         }
         else if (gunState == GunState.Alignment)
         {
-            if (Quaternion.Angle(movePoint.transform.localRotation, Quaternion.identity) < Mathf.Epsilon)
+            if (Quaternion.Angle(rotatePoint.transform.localRotation, Quaternion.identity) < Mathf.Epsilon)
             {
                 gunState = GunState.Idle;
             }
@@ -243,7 +245,8 @@ public class BasePlayerGunBehaviour : MonoBehaviour
 
             GameObject shell = Instantiate(shellPrefab, shellPoint.position, Quaternion.Euler(0f, 0f, Random.rotation.eulerAngles.z));
             Rigidbody2D shellRigidbody2D = shell.GetComponent<Rigidbody2D>();
-            shellRigidbody2D.AddForce(shellPoint.right * shellForce, ForceMode2D.Impulse);
+            shellRigidbody2D.AddForce(shellPoint.right * shellForce * (1f - Random.Range(0f, shellRandomValue)), ForceMode2D.Impulse);
+            shellRigidbody2D.AddTorque(shellForce * (1f - Random.Range(0f, shellRandomValue)), ForceMode2D.Impulse);
         }
     }
 

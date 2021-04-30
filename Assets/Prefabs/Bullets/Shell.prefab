@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 396529240489175144}
   - component: {fileID: 7681593359962277682}
   - component: {fileID: 2499735028141555599}
+  - component: {fileID: 1074360735536225829}
   m_Layer: 18
   m_Name: Shell
   m_TagString: Untagged
@@ -125,10 +126,22 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 8
   m_Material: {fileID: 6200000, guid: 65c6ec9f4e59e6044b0b1def47728b35, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &1074360735536225829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8640747366860429241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44ee7ad304373d44380cf66c86565713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
