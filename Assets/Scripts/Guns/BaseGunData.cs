@@ -3,7 +3,7 @@ using UnityEngine;
 public class BaseGunData : MonoBehaviour
 {
     public Rigidbody2D ownerRigidbody;
-    public GameFreezer gameFreezer;
+    public GameTimeScaleController gameFreezer;
 
     public float lifeTime = 10f;
     public float damage = 20f;

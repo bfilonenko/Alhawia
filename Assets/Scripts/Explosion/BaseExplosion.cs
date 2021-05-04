@@ -17,7 +17,7 @@ public class BaseExplosion : MonoBehaviour
             healthPoints.DealDamage(explosionData.damage);
 
             // Optimaze it
-            GameFreezer gameFreezer = FindObjectOfType<GameFreezer>();
+            GameTimeScaleController gameFreezer = FindObjectOfType<GameTimeScaleController>();
             if (gameFreezer)
             {
                 gameFreezer.Freeze(explosionData.freezeTimeOnImpact);

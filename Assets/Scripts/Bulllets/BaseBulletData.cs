@@ -4,7 +4,7 @@ public class BaseBulletData : MonoBehaviour
 {
     public AudioManager audioManager;
     public SFXManager sfxManager;
-    public GameFreezer gameFreezer;
+    public GameTimeScaleController gameFreezer;
 
     public float lifeTime = 10f;
     public float damage = 20f;
