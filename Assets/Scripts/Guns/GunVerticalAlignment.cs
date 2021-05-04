@@ -21,7 +21,7 @@ public class GunVerticalAlignment : MonoBehaviour
         CommonUtils.CheckFieldNotNull(playerRigidbody, "Player Rigidbody");
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Vector3 position = transform.position;
 
@@ -29,10 +29,10 @@ public class GunVerticalAlignment : MonoBehaviour
 
         float acceleration = -frequency * (currentHeight - followingHeight) - (currentSpeed * dampingRatio);
 
-        currentSpeed += acceleration * Time.deltaTime;
+        currentSpeed += acceleration * Time.fixedDeltaTime;
         currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed, maxSpeed);
 
-        currentHeight += currentSpeed * Time.deltaTime;
+        currentHeight += currentSpeed * Time.fixedDeltaTime;
         currentHeight = Mathf.Clamp(currentHeight, followingHeight - maxOffset, followingHeight + maxOffset);
 
         position.y = currentHeight;

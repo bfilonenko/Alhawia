@@ -279,15 +279,15 @@ MonoBehaviour:
   gameFreezer: {fileID: 0}
   lifeTime: 10
   damage: 19
-  enemyKnockBack: 100000
+  enemyKnockBack: 1000
   freezeTimeOnImpact: 0.02
-  playerKnockBack: 10000
+  playerKnockBack: 100
   bulletAmount: 3
   angleBetweenBullets: 5
   gunKnockbackMagnitude: 0.1
   gunKnockbackDuration: 0.1
-  shakeDirectImpulseAmplitude: 10
-  shakeCommonImpulseAmplitude: 10
+  shakeDirectImpulseAmplitude: 0.1
+  shakeCommonImpulseAmplitude: 0.1
   shakeDuration: 1
 --- !u!114 &2382055414291755607
 MonoBehaviour:
@@ -321,8 +321,8 @@ MonoBehaviour:
   cooldown: 0.05
   scatter: 5
   shellScatter: 5
-  bulletForce: 3000
-  shellForce: 1000
+  bulletForce: 30
+  shellForce: 10
   shellRandomValue: 0.2
   mouseButtonToShoot: 0
   creatureController: {fileID: 0}

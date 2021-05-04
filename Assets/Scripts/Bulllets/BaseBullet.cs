@@ -6,6 +6,8 @@ public class BaseBullet : MonoBehaviour
 {
     public Sound impactSound;
     public GameObject impactPrefab;
+    public Sound explosionSoud;
+    public GameObject explosionPrefab;
 
     public UnityEvent onImpact;
 
@@ -39,6 +41,14 @@ public class BaseBullet : MonoBehaviour
                 collision.GetContact(0).point,
                 Quaternion.Euler(0f, 0f, Mathf.Atan2(normal.y, normal.x) * Mathf.Rad2Deg),
                 0f);
+        }
+        if (explosionSoud)
+        {
+            bulletData.audioManager.PlaySound(explosionSoud);
+        }
+        if (explosionPrefab)
+        {
+            bulletData.sfxManager.RunSFX(explosionPrefab, transform.transform, 0f);
         }
 
         if (collision.gameObject.TryGetComponent(out HealthPoints healthPoints))

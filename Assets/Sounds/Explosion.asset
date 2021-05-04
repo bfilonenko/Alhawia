@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ead21bd89f0ec44ebd7bdace0959095, type: 3}
-  m_Name: BaseGunShoot
+  m_Name: Explosion
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 4e04ff0abd6ba4546b8d4b5fa17ca173, type: 3}
+  clip: {fileID: 8300000, guid: 97b0595856910344bbabef79f6375e43, type: 3}
   mixerGroup: {fileID: -2312931643855664620, guid: 0f533178f2ce63d4192aac07fbb3f867, type: 2}
-  dublicateCount: 15
+  dublicateCount: 10
   volume: 1
   pitch: 1
   randomVolume: 0.1
