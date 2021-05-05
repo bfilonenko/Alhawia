@@ -206,7 +206,7 @@ public class BasePlayerGunBehaviour : MonoBehaviour
         shellRotation.z = shellAngle + (Random.value - 0.5f) * shellScatter;
         Vector3 shellDirction = new(Mathf.Cos(shellRotation.z * Mathf.Deg2Rad), Mathf.Sin(shellRotation.z * Mathf.Deg2Rad), 0f);
 
-        GameObject shell = Instantiate(shellPrefab, shellPoint.position, Quaternion.Euler(0f, 0f, Random.rotation.eulerAngles.z));
+        GameObject shell = Instantiate(shellPrefab, shellPoint.position, Quaternion.Euler(0f, 0f, Random.rotation.eulerAngles.z), baseGunData.shellContainer);
         Rigidbody2D shellRigidbody2D = shell.GetComponent<Rigidbody2D>();
         shellRigidbody2D.AddForce(shellDirction * shellForce * (1f - Random.Range(0f, shellRandomValue)), ForceMode2D.Impulse);
         shellRigidbody2D.AddTorque(shellForce * (1f - Random.Range(0f, shellRandomValue)), ForceMode2D.Impulse);

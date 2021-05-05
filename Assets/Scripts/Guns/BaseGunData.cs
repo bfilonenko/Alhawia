@@ -5,6 +5,8 @@ public class BaseGunData : MonoBehaviour
     public Rigidbody2D ownerRigidbody;
     public GameTimeScaleController gameFreezer;
 
+    public Transform shellContainer;
+
     public float lifeTime = 10f;
     public float damage = 20f;
     public float enemyKnockBack = 100000f;
@@ -26,5 +28,6 @@ public class BaseGunData : MonoBehaviour
     {
         CommonUtils.CheckFieldNotNull(ownerRigidbody, "Owner Rigidbody");
         CommonUtils.CheckFieldNotNullAndTryToSet(ref gameFreezer, "Game Freezer");
+        CommonUtils.CheckFieldNotNullAndTryToSet(ref shellContainer, "Shell Container");
     }
 }

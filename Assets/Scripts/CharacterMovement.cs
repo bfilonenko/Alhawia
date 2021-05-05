@@ -7,6 +7,8 @@ public class CharacterMovement : MonoBehaviour
 {
     public Animator animator;
 
+    public BaseGunData baseGunData;
+
     public float movementSpeed = 1000f;
     public float jumpForse = 3100f;
     public float littleJumpForse = 2000f;
@@ -19,8 +21,12 @@ public class CharacterMovement : MonoBehaviour
 
     public bool isFlying = false;
 
+
     private CreatureController2D creatureController;
     private PlayerMovementInputAction inputActions;
+
+    private RoomManager currentRoom;
+
     private Vector2 movement2D = Vector2.zero;
     private float movement1D = 0f;
 
@@ -57,6 +63,12 @@ public class CharacterMovement : MonoBehaviour
 
         creatureController.SetWalking();
         isFlying = false;
+    }
+
+    public void ChangeRoom(RoomManager _, RoomManager newRoom)
+    {
+        currentRoom = newRoom;
+        baseGunData.shellContainer = newRoom.shellContainer;
     }
 
 

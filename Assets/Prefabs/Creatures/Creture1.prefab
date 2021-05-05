@@ -278,6 +278,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4752453643490903517}
+        m_TargetAssemblyTypeName: CorpseFinalizer, Assembly-CSharp
+        m_MethodName: set_AvailableToFinalize
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1393738081208864717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,6 +584,7 @@ GameObject:
   - component: {fileID: 1393738083044618073}
   - component: {fileID: 1393738083044618072}
   - component: {fileID: 1231456161580658677}
+  - component: {fileID: 4752453643490903517}
   m_Layer: 11
   m_Name: Creature1_0
   m_TagString: Untagged
@@ -664,6 +677,45 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4752453643490903517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393738083044618074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec8dacb61e15ced43b3fc7c5a00a6631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onFinalize:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1231456161580658677}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1393738083044618072}
+        m_TargetAssemblyTypeName: UnityEngine.SpriteRenderer, UnityEngine
+        m_MethodName: set_sprite
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1586472981, guid: 0664c66885b20d444967d83c3f5c9306, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1393738083086873373
 GameObject:
   m_ObjectHideFlags: 0
