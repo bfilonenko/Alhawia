@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     public RoomManager[] rooms;
 
     public GameObject player;
+    public Transform playerFollower;
 
     public ContactFilter2D contactFilter2D;
 
@@ -52,6 +53,11 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         InitRooms();
+
+        RoomConnector.Connect(rooms[0], RoomManager.RoomSide.BottomRight, rooms[1], RoomManager.RoomSide.BottomLeft);
+        RoomConnector.Connect(rooms[1], RoomManager.RoomSide.TopLeft, rooms[2], RoomManager.RoomSide.BottomRight);
+        RoomConnector.Connect(rooms[1], RoomManager.RoomSide.TopRight, rooms[3], RoomManager.RoomSide.BottomLeft);
+        RoomConnector.Connect(rooms[1], RoomManager.RoomSide.BottomRight, rooms[4], RoomManager.RoomSide.BottomLeft);
     }
 
     private void Update()
@@ -81,6 +87,7 @@ public class LevelManager : MonoBehaviour
             }
 
             onRoomChange.Invoke(currentRoom, roomManager);
+            roomManager.PlayerEnterToRoom(playerFollower);
 
             if (currentRoom)
             {

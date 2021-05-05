@@ -28,6 +28,5 @@ public class BaseGunData : MonoBehaviour
     {
         CommonUtils.CheckFieldNotNull(ownerRigidbody, "Owner Rigidbody");
         CommonUtils.CheckFieldNotNullAndTryToSet(ref gameFreezer, "Game Freezer");
-        CommonUtils.CheckFieldNotNullAndTryToSet(ref shellContainer, "Shell Container");
     }
 }

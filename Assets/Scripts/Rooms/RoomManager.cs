@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using UnityEngine;
 
@@ -14,11 +15,6 @@ public class RoomManager : MonoBehaviour
 
     public GameObject cinemachineCamera;
 
-    public RoomManager topLeftRoom;
-    public RoomManager bottomLeftRoom;
-    public RoomManager topRightRoom;
-    public RoomManager bottomRightRoom;
-
     public NextRoomLoader topLeftLoader;
     public NextRoomLoader bottomLeftLoader;
     public NextRoomLoader topRightLoader;
@@ -26,19 +22,45 @@ public class RoomManager : MonoBehaviour
 
     public Transform shellContainer;
 
+    [HideInInspector]
+    public readonly RoomManager[] neighbours = new RoomManager[neighboursAmount];
+    [HideInInspector]
+    public readonly NextRoomLoader[] neighbourLoaders = new NextRoomLoader[neighboursAmount];
+
 
     private const int neighboursAmount = (int) RoomSide.SizeOf;
 
 
     private LevelManager levelManager;
 
-    private readonly RoomManager[] neighbours = new RoomManager[neighboursAmount];
-    private readonly NextRoomLoader[] neighbourLoaders = new NextRoomLoader[neighboursAmount];
 
+    public void InitNeighbourLoaders()
+    {
+        void tryToAddNeighbourLoader(NextRoomLoader neighbourLoader, RoomSide side)
+        {
+            if (neighbourLoader)
+            {
+                neighbourLoaders[(int) side] = neighbourLoader;
+                neighbourLoader.RegisterRoomManager(this);
+            }
+        }
+
+        tryToAddNeighbourLoader(topLeftLoader, RoomSide.TopLeft);
+        tryToAddNeighbourLoader(bottomLeftLoader, RoomSide.BottomLeft);
+        tryToAddNeighbourLoader(topRightLoader, RoomSide.TopRight);
+        tryToAddNeighbourLoader(bottomRightLoader, RoomSide.BottomRight);
+    }
 
     public void RegisterLevelManager(LevelManager manager)
     {
         levelManager = manager;
+    }
+
+    public void PlayerEnterToRoom(Transform playerFollower)
+    {
+        cinemachineCamera.GetComponent<CinemachineVirtualCamera>().Follow = playerFollower;
+
+        CheckMatchingLoaderToRoom();
     }
 
     public void LoadNeighbour(NextRoomLoader nextRoomLoader)
@@ -58,39 +80,6 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-
-    private void InitNeighbours()
-    {
-        void tryToAddNeighbour(RoomManager neighbour, RoomSide side)
-        {
-            if (neighbour)
-            {
-                neighbours[(int) side] = neighbour;
-            }
-        }
-
-        tryToAddNeighbour(topLeftRoom, RoomSide.TopLeft);
-        tryToAddNeighbour(bottomLeftRoom, RoomSide.BottomLeft);
-        tryToAddNeighbour(topRightRoom, RoomSide.TopRight);
-        tryToAddNeighbour(bottomRightRoom, RoomSide.BottomRight);
-    }
-
-    private void InitNeighbourLoaders()
-    {
-        void tryToAddNeighbourLoader(NextRoomLoader neighbourLoader, RoomSide side)
-        {
-            if (neighbourLoader)
-            {
-                neighbourLoaders[(int) side] = neighbourLoader;
-                neighbourLoader.RegisterRoomManager(this);
-            }
-        }
-
-        tryToAddNeighbourLoader(topLeftLoader, RoomSide.TopLeft);
-        tryToAddNeighbourLoader(bottomLeftLoader, RoomSide.BottomLeft);
-        tryToAddNeighbourLoader(topRightLoader, RoomSide.TopRight);
-        tryToAddNeighbourLoader(bottomRightLoader, RoomSide.BottomRight);
-    }
 
     private void CheckMatchingLoaderToRoom()
     {
@@ -145,8 +134,6 @@ public class RoomManager : MonoBehaviour
 
     private void Awake()
     {
-        InitNeighbours();
         InitNeighbourLoaders();
-        CheckMatchingLoaderToRoom();
     }
 }
